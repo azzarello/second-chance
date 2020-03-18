@@ -35,7 +35,8 @@ ineligibleCrimes = {
     "263.11": "Possessing an Obscene Sexual Performance by a Child",
     "263.15": "Promoting a Sexual Performance by a Child",
     "263.16": "Possessing a Sexual Performance by a Child",
-    "263.30": "Facilitating a Sexual Performance by a Child with a Controlled Substance or Alcohol",
+    "263.30": "Facilitating a Sexual Performance by a Child with a \
+        Controlled Substance or Alcohol",
     # Homicide Offenses
     "125.10": "Criminally Negligent Homicide",
     "125.11": "Aggravated Criminally Negligent Homicide",
@@ -74,8 +75,10 @@ ineligibleCrimes = {
     "490.35": "Hindering Prosecution of Terrorism 1st Degree",
     "490.40": "Criminal Possession of a Chemical Weapon or Biological Weapon 2nd Degree",
     "490.47": "Criminal Use of a Chemical Weapon or Biological Weapon 3rd Degree",
-    # Class C Violent Felony Offenses (includes any attempts to commit any of the Class B felony offenses listed above)
-    "120.08": "Assault on a Peace Officer, Police Officer, Fireman or Emergency Medical Services Professional",
+    # Class C Violent Felony Offenses (includes any attempts to commit any of
+    # the Class B felony offenses listed above)
+    "120.08": "Assault on a Peace Officer, Police Officer, Fireman or Emergency \
+        Medical Services Professional",
     "120.09": "Assault on a Judge",
     "120.06": "Gang Assault 2nd Degree",
     "121.13": "Strangulation 1st Degree",
@@ -89,7 +92,8 @@ ineligibleCrimes = {
     "490.15": "Soliciting or Providing Support for an Act of Terrorism 1st Degree",
     "490.30": "Hindering Prosecution of Terrorism 2nd Degree",
     "490.37": "Criminal Possession of a Chemical Weapon or Biological Weapon 3rd Degree",
-    # Class D Violent Felony Offenses (any attempt to commit any of the Class C violent felony offenses listed above)
+    # Class D Violent Felony Offenses (any attempt to commit any of the
+    # Class C violent felony offenses listed above)
     "120.02": "Reckless Assault of a Child",
     "120.05": "Assault 2nd Degree",
     "120.18": "Menacing a Police Officer or Peace Officer",
@@ -108,7 +112,8 @@ ineligibleCrimes = {
     "490.20": "Making a Terroristic Threat",
     "240.60": "Falsely Reporting an Incident 1st Degree",
     "240.62": "Placing a False Bomb or Hazardous Substance 1st Degree",
-    "240.63": "Placing a False Bomb or Hazardous Substance in a Sports Stadium or Arena, Mass Transportation Facility or Enclosed Shopping Mall",
+    "240.63": "Placing a False Bomb or Hazardous Substance in a Sports Stadium or Arena, \
+        Mass Transportation Facility or Enclosed Shopping Mall",
     "405.18": "Aggravated Unpermitted Use of Indoor Pyrotechnics 1st Degree",
     # Class E Violent Felony Offenses
     "130.53": "Persistent Sexual Abuse",
@@ -119,7 +124,7 @@ ineligibleCrimes = {
     "105.10": "Conspiracy 4th Degree",
     "105.13": "Conspiracy 3rd Degree",
     "105.15": "Conspiracy 2nd Degree",
-    "105.17": "Conspiracy 1st Degree"
+    "105.17": "Conspiracy 1st Degree",
 }
 
 sexOffenderCrimes = {
@@ -150,107 +155,97 @@ sexOffenderCrimes = {
     "263.11": "Possessing an Obscene Sexual Performance by a Child",
     "263.15": "Promoting a Sexual Performance by a Child",
     "263.16": "Possessing a Sexual Performance by a Child",
-    "263.30": "Facilitating a Sexual Performance by a Child with a Controlled Substance or Alcohol"
+    "263.30": "Facilitating a Sexual Performance by a Child with a Controlled Substance or Alcohol",
 }
 
 charge_field = {
-    'charge-dropdown': 'charge-type',
-    'offense-description': 'offense-description',
-    'pl-number': 'pl-number',
-    'disposition-dropdown': 'disposition',
-    'date-disposition': 'start-date',
-    'sentence-completion': 'sentence-complete',
-    'date-completion': 'end-date'
+    "charge-dropdown": "charge-type",
+    "offense-description": "offense-description",
+    "pl-number": "pl-number",
+    "disposition-dropdown": "disposition",
+    "date-disposition": "start-date",
+    "sentence-completion": "sentence-complete",
+    "date-completion": "end-date",
 }
 
 
 def generate_ny_counties():
     county_list = []
-    with open('data/ny_counties.txt') as f:
+    with open("data/ny_counties.txt") as f:
         content = f.readlines()
         # print(content)
-        county_list = [{'label': elem.strip(), 'value': elem.strip()}
-                       for elem in content]
+        county_list = [
+            {"label": elem.strip(), "value": elem.strip()} for elem in content
+        ]
     return county_list
 
 
 def generate_crime_entry(num):
     ret = []
-    for i in range(1, int(num)+1):
+    for i in range(1, int(num) + 1):
         ret.append(crime_entry_div(i))
     return ret
 
 
 def crime_entry_div(offense_no):
-    return html.Div(children=[
-
-        html.Br(),
-        html.H5(children="Crime #"+str(offense_no)),
-
-
-        html.P(children='What is the charge type?'),
-        dcc.RadioItems(id=('charge-dropdown-' + str(offense_no)), options=[
-            {'label': 'Misdemeanor', 'value': 'Misdemeanor'},
-            {'label': 'Minor', 'value': 'Minor'},
-            {'label': 'Felony', 'value': 'Felony'},
-        ]),
-
-        html.Br(),
-        html.P(children='Any offense description?'),
-        dcc.Input(
-            type='text',
-            value='',
-            id='offense-description-' + str(offense_no)
-        ),
-
-        html.Br(),
-        html.P(children='What is the PL number?'),
-        dcc.Input(
-            type='text',
-            value='',
-            id=('pl-number-' + str(offense_no)),
-        ),
-
-        html.Hr(),
-        html.P(children='Disposition'),
-        dcc.RadioItems(id=('disposition-dropdown-' + str(offense_no)), options=[
-            {'label': 'Guilty', 'value': 'Guilty'},
-            {'label': 'Not Guilty', 'value': 'Not Guilty'},
-            {'label': 'Pending', 'value': 'Pending'},
+    return html.Div(
+        children=[
+            html.Br(),
+            html.H5(children="Crime #" + str(offense_no)),
+            html.P(children="What is the charge type?"),
+            dcc.RadioItems(
+                id=("charge-dropdown-" + str(offense_no)),
+                options=[
+                    {"label": "Misdemeanor", "value": "Misdemeanor"},
+                    {"label": "Minor", "value": "Minor"},
+                    {"label": "Felony", "value": "Felony"},
+                ],
+            ),
+            html.Br(),
+            # html.P(children="Any offense description?"),
+            # dcc.Input(
+            #     type="text", value="", id="offense-description-" + str(offense_no)
+            # ),
+            html.Br(),
+            html.P(children="What is the PL number?"),
+            dcc.Input(type="text", value="", id=("pl-number-" + str(offense_no))),
+            html.Hr(),
+            html.P(children="Disposition"),
+            dcc.RadioItems(
+                id=("disposition-dropdown-" + str(offense_no)),
+                options=[
+                    {"label": "Guilty", "value": "Guilty"},
+                    {"label": "Not Guilty", "value": "Not Guilty"},
+                    {"label": "Pending", "value": "Pending"},
+                ],
+                value="Guilty",
+            ),
+            html.Br(),
+            html.P(children="What is the date of disposition?"),
+            dcc.DatePickerSingle(
+                id=("date-disposition-" + str(offense_no)), date=datetime(2010, 1, 1)
+            ),
+            html.Hr(),
+            html.P(children="Have you completed your sentence?"),
+            dcc.RadioItems(
+                options=[
+                    {"label": "Yes", "value": "YES"},
+                    {"label": "No", "value": "NO"},
+                ],
+                value="YES",
+                id=("sentence-completion-" + str(offense_no)),
+            ),
+            html.Br(),
+            html.P(children="What is the date of sentence completion?"),
+            dcc.DatePickerSingle(
+                id=("date-completion-" + str(offense_no)), date=datetime(2020, 1, 1)
+            ),
+            html.Hr(),
         ],
-            value='Guilty'
-        ),
+        className="six columns",
+        style={"background-color": "white"},
+    )
 
-        html.Br(),
-        html.P(children='What is the date of disposition?'),
-        dcc.DatePickerSingle(
-            id=('date-disposition-'+str(offense_no)),
-            date=datetime(2010, 1, 1)
-        ),
-
-
-
-        html.Hr(),
-
-        html.P(children='Have you completed your sentence?'),
-        dcc.RadioItems(
-            options=[
-                {'label': 'Yes', 'value': 'YES'},
-                {'label': 'No', 'value': 'NO'},
-            ],
-            value='YES',
-            id=('sentence-completion-'+str(offense_no))
-        ),
-
-        html.Br(),
-        html.P(children='What is the date of sentence completion?'),
-        dcc.DatePickerSingle(
-            id=('date-completion-'+str(offense_no)),
-            date=datetime(2020, 1, 1)
-        ),
-        html.Hr(),
-        
-        ], className="four columns", style={"background-color":"white"})
 
 # Eligible list index reference
 # [0] DO YOU HAVE MORE THAN TWO (2) CRIMINAL CONVICTIONS (MISDEMEANOR OR FELONY)?
@@ -263,47 +258,73 @@ def crime_entry_div(offense_no):
 # 1 is yes
 
 
-def expunge_eligibility(num_crimes, state, offense, sentence_completion, disposition, disp_date, county_state, end_date):
-    eligible_list = [0, 0, 0, 0, 0, 0]
+def expunge_eligibility(
+    num_crimes,
+    state,
+    offense,
+    sentence_completion,
+    disposition,
+    disp_date,
+    county_state,
+    end_date,
+):
+    eligible_list = [1, 1, 1, 1, 1, 1]
     # 1. Check to see if more than 2 criminal convictions
-    if (num_crimes > 2):
-        eligible_list[0] = 1
+    if num_crimes <= 2:
+        eligible_list[0] = 0
     # 2. Do you have more than one felony conviction
     felony = 0
     for case in offense:
         if case[0] == "Felony":
             felony += 1
-    if felony > 1:
-        eligible_list[1] = 1
+    if felony <= 1:
+        eligible_list[1] = 0
 
     # 3. Check to see if less than ten years since last criminal conviction
     current_date = datetime.now()
     """ Make the date a date time object """
-    # print(disp_date)
+    print(disp_date)
+    in_range_count = 0
     for case in disp_date:
+        print("Case")
         print(case)
-        ten_after_disp = datetime(
-            case.year + 10, case.month, case.day)
+        try:
+            case_year = int(case[0:4])
+            case_month = int(case[5:7])
+            case_day = int(case[8:10])
+        except E:
+            print("Datetime parse was unsuccessful")
+        ten_after_disp = datetime(case_year + 10, case_month, case_day)
+        print("Ten After Disp Date")
         print(ten_after_disp)
-        if(ten_after_disp >= current_date):
-            eligible_list[2] = 1
-            break
+        if ten_after_disp < current_date:
+            in_range_count += 1
+    print(in_range_count)
+    print(num_crimes)
+    if in_range_count == num_crimes:
+        eligible_list[2] = 0
 
     # 4. Check if ineligible
     # 5. Check if registered as sex criminal
+    eligible_crimes = 0
+    non_sex_crimes = 0
     for case in offense:
         # Found a non-eligible case for sealing
         # print (case_no)
-        if case[2] in ineligibleCrimes:
-            eligible_list[3] = 1
+        if case[2] not in ineligibleCrimes:
+            eligible_crimes += 1
             # See if they are a sex offender
-            if case[2] in sexOffenderCrimes:
-                eligible_list[4] = 1
+        if case[2] not in sexOffenderCrimes:
+            non_sex_crimes += 1
+    if non_sex_crimes == num_crimes:
+        eligible_list[3] = 0
+    if eligible_crimes == num_crimes:
+        eligible_list[4] = 0
 
     # 6. Do you currently have a criminal case
     for case in disposition:
-        if (case == "Pending"):
-            eligible_list[5] = 1
+        if case != "Pending":
+            eligible_list[5] = 0
             break
     eligible_condition = True
     for i in eligible_list:
@@ -316,7 +337,7 @@ def expunge_eligibility(num_crimes, state, offense, sentence_completion, disposi
 def parse_charges(charges):
     parsed_charges = []
     num_crimes = len(charges)
-    state = 'NY'
+    state = "NY"
     offense = []
     sentence_completion = []
     disposition = []
@@ -327,21 +348,21 @@ def parse_charges(charges):
         parsed_charge = {}
         curr_charge = charges[i]
         try:
-            curr_charge = curr_charge['props']['children']
+            curr_charge = curr_charge["props"]["children"]
         except Exception:
             pass
         for i in range(len(curr_charge)):
             value = curr_charge[i]
-            props = value['props']
+            props = value["props"]
             try:
-                key = charge_field.get(props['id'].rpartition('-')[0])
-                if 'value' in props:
-                    value = props['value']
-                elif 'date' in props:
-                    value = props['date']
+                key = charge_field.get(props["id"].rpartition("-")[0])
+                if "value" in props:
+                    value = props["value"]
+                elif "date" in props:
+                    value = props["date"]
                 else:
-                    value = ''
-                if (value != ''):
+                    value = ""
+                if value != "":
                     parsed_charge[key] = value
             except Exception:
                 pass
@@ -350,16 +371,16 @@ def parse_charges(charges):
     for el in parsed_charges:
         pprint(el)
         try:
-            if 'charge-type' in el:
-                charge_type = el['charge-type']
+            if "charge-type" in el:
+                charge_type = el["charge-type"]
             else:
                 charge_type = None
-            if 'offense-description' in el:
-                offense_description = el['offense-description']
+            if "offense-description" in el:
+                offense_description = el["offense-description"]
             else:
                 offense_description = None
-            if 'pl-number' in el:
-                pl_number = el['pl-number']
+            if "pl-number" in el:
+                pl_number = el["pl-number"]
             else:
                 pl_number = None
             offense_tuple = (charge_type, offense_description, pl_number)
@@ -370,25 +391,33 @@ def parse_charges(charges):
         except Exception:
             pass
         try:
-            sentence_completion.append(el['sentence-completion'])
+            sentence_completion.append(el["sentence-completion"])
         except Exception:
             pass
         try:
-            disposition.append(el['disposition'])
+            disposition.append(el["disposition"])
         except Exception:
             pass
         try:
-            disp_date.append(datetime(el.get('start-date')))
+            disp_date.append(el["start-date"])
         except Exception:
             pass
         try:
-            end_date.append(el['end-date'])
+            end_date.append(el["end-date"])
         except Exception:
             pass
-    print('disp date')
+    print("disp date")
     print(disp_date)
     eligible_list, eligible = expunge_eligibility(
-        num_crimes, state, offense, sentence_completion, disposition, disp_date, county_state, end_date)
+        num_crimes,
+        state,
+        offense,
+        sentence_completion,
+        disposition,
+        disp_date,
+        county_state,
+        end_date,
+    )
     return eligible_list, eligible
 
 
@@ -402,8 +431,8 @@ def output_answers(eligible_list, eligible):
             ret.append("X")
 
     return_message = ""
-    if (eligible):
-        return_message = "CONGRATS! You can be free now!"
+    if eligible:
+        return_message = "CONGRATS, you are eligible for expungement!"
     else:
         return_message = "SORRY, you are not eligible for expungement."
 
